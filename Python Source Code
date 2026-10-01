@@ -1,0 +1,207 @@
+# ==========================================
+#        VEHICLE RENTAL SYSTEM
+# ==========================================
+
+# List of vehicles
+vehicles = [
+    ["EV", 1500, "Available"],
+    ["Tank", 5000, "Available"],
+    ["Bus", 3000, "Available"],
+    ["GT 350", 2000, "Available"],
+    ["SUV", 2500, "Available"]
+]
+
+
+# ==========================================
+# Function to Display Vehicles
+# ==========================================
+
+def display_vehicles():
+
+    print("\n----- VEHICLE LIST -----")
+
+    # For loop
+    for i in range(len(vehicles)):
+
+        print(
+            i + 1,
+            "-",
+            vehicles[i][0],
+            "| Rent/Day: Rs.",
+            vehicles[i][1],
+            "| Status:",
+            vehicles[i][2]
+        )
+
+
+# ==========================================
+# Function to Search Vehicle
+# ==========================================
+
+def search_vehicle():
+
+    name = input("\nEnter vehicle name: ")
+
+    # For loop
+    for i in range(len(vehicles)):
+
+        if name.lower() == vehicles[i][0].lower():
+
+            print("\n----- VEHICLE FOUND -----")
+            print("Vehicle:", vehicles[i][0])
+            print("Rent per Day: Rs.", vehicles[i][1])
+            print("Status:", vehicles[i][2])
+
+            return
+
+    print("\nVehicle not found!")
+
+
+# ==========================================
+# Function to Rent Vehicle
+# ==========================================
+
+def rent_vehicle():
+
+    display_vehicles()
+
+    number = int(input("\nEnter vehicle number: "))
+
+    # Condition
+    if number >= 1 and number <= len(vehicles):
+
+        # Nested if
+        if vehicles[number - 1][2] == "Available":
+
+            days = int(input("Enter number of rental days: "))
+
+            # Nested if again
+            if days > 0:
+
+                vehicle_name = vehicles[number - 1][0]
+                rent_per_day = vehicles[number - 1][1]
+
+                total_rent = rent_per_day * days
+
+                # Change vehicle status
+                vehicles[number - 1][2] = "Rented"
+
+                print("\n----- RENTAL DETAILS -----")
+                print("Vehicle:", vehicle_name)
+                print("Rent per Day: Rs.", rent_per_day)
+                print("Rental Days:", days)
+                print("Total Rent: Rs.", total_rent)
+                print("Status: Rented")
+
+            else:
+
+                print("\nRental days must be greater than 0!")
+
+        else:
+
+            print("\nVehicle is already rented!")
+
+    else:
+
+        print("\nInvalid vehicle number!")
+
+
+# ==========================================
+# Function to Return Vehicle
+# ==========================================
+
+def return_vehicle():
+
+    display_vehicles()
+
+    number = int(input("\nEnter vehicle number to return: "))
+
+    # Condition
+    if number >= 1 and number <= len(vehicles):
+
+        # Nested if
+        if vehicles[number - 1][2] == "Rented":
+
+            vehicles[number - 1][2] = "Available"
+
+            print("\nVehicle returned successfully!")
+
+        else:
+
+            print("\nVehicle is already available!")
+
+    else:
+
+        print("\nInvalid vehicle number!")
+
+
+# ==========================================
+# Function to Add Vehicle
+# ==========================================
+
+def add_vehicle():
+
+    name = input("\nEnter vehicle name: ")
+    rent = int(input("Enter rent per day: "))
+
+    # Condition
+    if rent > 0:
+
+        # Add vehicle to list
+        vehicles.append([name, rent, "Available"])
+
+        print("\nVehicle added successfully!")
+
+    else:
+
+        print("\nRent must be greater than 0!")
+
+
+# ==========================================
+# Main Program
+# ==========================================
+
+while True:
+
+    print("\n================================")
+    print("       VEHICLE RENTAL SYSTEM")
+    print("================================")
+
+    print("1. Display Vehicles")
+    print("2. Search Vehicle")
+    print("3. Rent Vehicle")
+    print("4. Return Vehicle")
+    print("5. Add Vehicle")
+    print("6. Exit")
+
+    choice = input("\nEnter your choice: ")
+
+    # Conditions
+    if choice == "1":
+
+        display_vehicles()
+
+    elif choice == "2":
+
+        search_vehicle()
+
+    elif choice == "3":
+
+        rent_vehicle()
+
+    elif choice == "4":
+
+        return_vehicle()
+
+    elif choice == "5":
+
+        add_vehicle()
+
+    elif choice == "6":
+
+        print("\nThank you for using Vehicle Rental System!")
+        break
+
+    else:
+
+        print("\nInvalid choice!")
